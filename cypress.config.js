@@ -4,10 +4,10 @@ module.exports = defineConfig({
   projectId: "hp712v",
   viewportWidth: 1440,
   viewportHeight: 900,
-  retries: {
-    runMode: 2,
-    openMode: 1,
-  },
+  // retries: {
+  //   runMode: 2,
+  //   openMode: 1,
+  // },
 
   e2e: {
     // We've imported your old cypress plugins here.
