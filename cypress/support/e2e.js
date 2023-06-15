@@ -21,3 +21,30 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+/*
+cy.on('uncaught:exception', (error) => {
+  if (error.message.includes('Request failed with status code 429')) {
+    // Handle Request failed with status code 429
+    cy.log('Request failed with status code 429');
+    // Additional error handling logic
+  } else if (error.message.includes("Cannot read properties of undefined")) {
+    // Handle TypeError: Cannot read properties of undefined
+    cy.log('TypeError: Cannot read properties of undefined');
+    // Additional error handling logic
+  } else if (error.message.includes("Avoided redundant navigation")) {
+    // Handle NavigationDuplicated
+    cy.log('NavigationDuplicated: Avoided redundant navigation');
+    // Additional error handling logic
+  } else {
+    // Handle other types of errors
+    cy.log('Unhandled exception:', error.message);
+    // Additional error handling logic
+  }
+
+  // Prevent the exception from failing the test
+  return false;
+});
+
+// Your Cypress test code continues here...
+*/

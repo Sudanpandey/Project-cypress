@@ -38,3 +38,7 @@ Cypress.Commands.add("logout", () => {
     cy.url().should("contain", config.app.base_url);
     cy.title().should('eq', 'Client Portal');
 });
+
+Cypress.Commands.add("waitForLoader",()=>{
+    cy.get('.loader-site',{timeout:30000}).should('not.exist');
+})
