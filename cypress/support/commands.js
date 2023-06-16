@@ -44,15 +44,15 @@ Cypress.Commands.add("waitForLoader",()=>{
 })
 
 //dynamic file upload
-Cypress.Commands.add("uploadDynamicImage", () => {
+Cypress.Commands.add("uploadDynamicImage", (numFiles, fileInputSelector, fileUploadSelector) => {
   //File uploading 
   const Images = ['1.pdf', '2.pdf', '3.pdf', '4.pdf', '5.pdf', '6.pdf', '7.pdf'];
   // Generate random indices
-  const randomIndices = Array.from({ length: 3 }, () => Math.floor(Math.random() * Images.length));
+  const randomIndices = Array.from({ length: numFiles}, () => Math.floor(Math.random() * Images.length));
   // Select and store the random images
   const selectedImages = randomIndices.map((index) => Images[index]);
   // Click the "Choose Files" button and upload the selected images
-  cy.get("input[name='files[]']").then((input) => {
+  cy.get(fileInputSelector).then((input) => {
   selectedImages.forEach((imageName) => {
       cy.fixture(imageName, 'binary')
       .then(Cypress.Blob.binaryStringToBlob)
@@ -68,6 +68,6 @@ Cypress.Commands.add("uploadDynamicImage", () => {
   });
   // Assert the selected images
   selectedImages.forEach((imageName) => {
-  cy.get('.order-2').should('contain', imageName);
+  cy.get(fileUploadSelector).should('contain', imageName);
   });
 });

@@ -361,7 +361,10 @@ describe("Create category", () => {
         cy.get("input[name='name']").type(templateNameWithAttch);
         cy.get("input[name='subject']").type("Test subject.");
         cy.get('.ql-editor').type("Test Template Body.");
-        cy.uploadDynamicImage();
+        const numFiles = 3;
+        const fileInputSelector = "input[name='files[]']";
+        const fileUploadSelector = ".order-2";
+        cy.uploadDynamicImage(numFiles, fileInputSelector,fileUploadSelector);
         cy.get("button.btn-secondary[type='submit']", { timeout: 8000 }).click();
         cy.get('tbody>tr:nth-child(1)').should('contain', templateNameWithAttch);
         cy.get('tbody>tr:nth-child(1)').should('contain', 6);
