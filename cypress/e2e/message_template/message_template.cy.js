@@ -352,7 +352,7 @@ describe("Create category", () => {
         cy.contains('success').should('be.visible').click();
         cy.wait(10000);
    })
-    it("Refactor-: Should upload dynamic images", () => {
+    it.only("Refactor-: Should upload dynamic images", () => {
         // Navigation
         cy.get(':nth-child(10) > .nav-item > .icon-sidenav',{timeout: 20000}).click();
         cy.get("li:nth-of-type(9) div:nth-of-type(2)").click();
@@ -361,39 +361,10 @@ describe("Create category", () => {
         cy.get("input[name='name']").type(templateNameWithAttch);
         cy.get("input[name='subject']").type("Test subject.");
         cy.get('.ql-editor').type("Test Template Body.");
-        //File uploading 
-        const Images = ['1.pdf', '2.pdf', '3.pdf', '4.pdf', '5.pdf', '6.pdf', '7.pdf'];
-
-        // Generate random indices
-        const randomIndices = Array.from({ length: 3 }, () => Math.floor(Math.random() * Images.length));
-
-        // Select and store the random images
-        const selectedImages = randomIndices.map((index) => Images[index]);
-
-        // Click the "Choose Files" button and upload the selected images
-        cy.get("input[name='files[]']").then((input) => {
-        selectedImages.forEach((imageName) => {
-            cy.fixture(imageName, 'binary')
-            .then(Cypress.Blob.binaryStringToBlob)
-            .then((blob) => {
-                const testFile = new File([blob], imageName, { type: 'application/pdf' });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(testFile);
-                const fileInput = input[0];
-                fileInput.files = dataTransfer.files;
-                cy.wrap(input).trigger('change', { force: true });
-            });
-            });
-        });
-        // Assert the selected images
-        selectedImages.forEach((imageName) => {
-        cy.get('.order-2').should('contain', imageName);
-        });
-
+        cy.uploadDynamicImage();
         cy.get("button.btn-secondary[type='submit']", { timeout: 8000 }).click();
         cy.get('tbody>tr:nth-child(1)').should('contain', templateNameWithAttch);
         cy.get('tbody>tr:nth-child(1)').should('contain', 6);
-
         //Delete recently created message template
         cy.wait(2000);
         cy.get("input[placeholder='Search']").clear().type(templateNameWithAttch).type('{enter}');

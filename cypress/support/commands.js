@@ -42,3 +42,32 @@ Cypress.Commands.add("logout", () => {
 Cypress.Commands.add("waitForLoader",()=>{
     cy.get('.loader-site',{timeout:30000}).should('not.exist');
 })
+
+//dynamic file upload
+Cypress.Commands.add("uploadDynamicImage", () => {
+  //File uploading 
+  const Images = ['1.pdf', '2.pdf', '3.pdf', '4.pdf', '5.pdf', '6.pdf', '7.pdf'];
+  // Generate random indices
+  const randomIndices = Array.from({ length: 3 }, () => Math.floor(Math.random() * Images.length));
+  // Select and store the random images
+  const selectedImages = randomIndices.map((index) => Images[index]);
+  // Click the "Choose Files" button and upload the selected images
+  cy.get("input[name='files[]']").then((input) => {
+  selectedImages.forEach((imageName) => {
+      cy.fixture(imageName, 'binary')
+      .then(Cypress.Blob.binaryStringToBlob)
+      .then((blob) => {
+          const testFile = new File([blob], imageName, { type: 'application/pdf' });
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(testFile);
+          const fileInput = input[0];
+          fileInput.files = dataTransfer.files;
+          cy.wrap(input).trigger('change', { force: true });
+      });
+      });
+  });
+  // Assert the selected images
+  selectedImages.forEach((imageName) => {
+  cy.get('.order-2').should('contain', imageName);
+  });
+});
