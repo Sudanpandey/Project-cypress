@@ -1,6 +1,6 @@
 import { config } from "../../../config/index";
 describe("Login", () => {
-    it("Login Success with Valid Login Details", function () {
+    it.only("Login Success with Valid Login Details", function () {
         cy.login();
         cy.logout();
     });

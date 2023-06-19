@@ -1,7 +1,7 @@
 describe("Login", () => {
     it("Should display error message for empty Inspection", () => {
         cy.login();
-        // Click objecten 
+        // Click objecten
         cy.get(`li:contains('Objecten')`).click();
         cy.get(`td[data-title="Locatie"]`).should('be.visible').first().click();
         cy.get('.tab-bar .nav-pills li.nav-item a.nav-link').contains('Inspecties').click();
@@ -36,7 +36,22 @@ describe("Login", () => {
         cy.contains('success').click();
         // cy.get('.h5 > .btn').should('contain','Opslaan');
       })
-    it("Login Success with Valid Login Details", function () {
+      it.only("Test Test", () => {
+        cy.login();
+        // Click objecten 
+        cy.get(`li:contains('Objecten')`).click();
+        cy.get(`td[data-title="Locatie"]`).should('be.visible').first().click();
+        cy.get('.tab-bar .nav-pills li.nav-item a.nav-link').contains('Inspecties').click();
+        cy.contains('Nieuwe Inspectie').click();
+        cy.get('select.form-control option:nth-child(2)').parent('select').select('1');
+        cy.get("input[required='required']").click();
+        cy.get(".btn.btn-submit").click();
+        cy.get('.h5 > .btn').should('contain','Opslaan');
+        cy.contains('Good').click();
+        // cy.get("textarea[@placeholder='Add a comment']").type("This is test comment");
+        cy.get('#child-2 > .ctb-inspect-inside-row > :nth-child(1) > .col-md-6 > :nth-child(1) > :nth-child(1) > .form-control').type("This is test comment");
+      })
+    it.skip("Login Success with Valid Login Details", function () {
         cy.login();
         // Click objecten 
         cy.get(`li:contains('Objecten')`).click();
@@ -54,7 +69,6 @@ describe("Login", () => {
         // cy.get("//div[@id='child-2']//textarea[contains(@placeholder,'Add a comment')]").type("This is simple test");
         // cy.contains('button[type="button"]', 'save');
         cy.get(".btn.btn-submit").click();
-
     });
 
 

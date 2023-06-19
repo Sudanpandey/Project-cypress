@@ -352,7 +352,10 @@ describe("Create category", () => {
         cy.contains('success').should('be.visible').click();
         cy.wait(10000);
    })
-    it.only("Refactor-: Should upload dynamic images", () => {
+    it("Refactor-: Should upload dynamic images", () => {
+        const numFiles = 3;
+        const fileInputSelector = "input[name='files[]']";
+        const fileUploadSelector = ".order-2";
         // Navigation
         cy.get(':nth-child(10) > .nav-item > .icon-sidenav',{timeout: 20000}).click();
         cy.get("li:nth-of-type(9) div:nth-of-type(2)").click();
@@ -361,9 +364,6 @@ describe("Create category", () => {
         cy.get("input[name='name']").type(templateNameWithAttch);
         cy.get("input[name='subject']").type("Test subject.");
         cy.get('.ql-editor').type("Test Template Body.");
-        const numFiles = 3;
-        const fileInputSelector = "input[name='files[]']";
-        const fileUploadSelector = ".order-2";
         cy.uploadDynamicImage(numFiles, fileInputSelector,fileUploadSelector);
         cy.get("button.btn-secondary[type='submit']", { timeout: 8000 }).click();
         cy.get('tbody>tr:nth-child(1)').should('contain', templateNameWithAttch);
