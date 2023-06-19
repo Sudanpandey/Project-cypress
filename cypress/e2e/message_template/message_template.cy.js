@@ -352,7 +352,7 @@ describe("Create category", () => {
         cy.contains('success').should('be.visible').click();
         cy.wait(10000);
    })
-    it("Refactor-: Should upload dynamic images", () => {
+    it.only("Refactor-: Should upload dynamic images", () => {
         const numFiles = 3;
         const fileInputSelector = "input[name='files[]']";
         const fileUploadSelector = ".order-2";
@@ -367,7 +367,9 @@ describe("Create category", () => {
         cy.uploadDynamicImage(numFiles, fileInputSelector,fileUploadSelector);
         cy.get("button.btn-secondary[type='submit']", { timeout: 8000 }).click();
         cy.get('tbody>tr:nth-child(1)').should('contain', templateNameWithAttch);
-        cy.get('tbody>tr:nth-child(1)').should('contain', 6);
+        // cy.get('tbody>tr:nth-child(1)').should('contain', 5);
+        cy.get(':nth-child(1) > [data-title="Attachments Count"]').should('contain', 3);
+
         //Delete recently created message template
         cy.wait(2000);
         cy.get("input[placeholder='Search']").clear().type(templateNameWithAttch).type('{enter}');

@@ -46,11 +46,11 @@ Cypress.Commands.add("waitForLoader",()=>{
 //dynamic file upload
 Cypress.Commands.add("uploadDynamicImage", (numFiles, fileInputSelector, fileUploadSelector) => {
   //File uploading 
-  const Images = ['1.pdf', '2.pdf', '3.pdf', '4.pdf', '5.pdf', '6.pdf', '7.pdf'];
+  const images = ['1.pdf', '2.pdf', '3.pdf', '4.pdf', '5.pdf', '6.pdf', '7.pdf'];
   // Generate random indices
-  const randomIndices = Array.from({ length: numFiles}, () => Math.floor(Math.random() * Images.length));
+  const randomIndices = Array.from({ length: numFiles}, () => Math.floor(Math.random() * images.length));
   // Select and store the random images
-  const selectedImages = randomIndices.map((index) => Images[index]);
+  const selectedImages = randomIndices.map((index) => images[index]);
   // Click the "Choose Files" button and upload the selected images
   cy.get(fileInputSelector).then((input) => {
   selectedImages.forEach((imageName) => {
