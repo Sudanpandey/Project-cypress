@@ -9,6 +9,7 @@
 // **********************************************
 import { config } from "../../config/index";
 import Login_PO from "../support/pageObjects/Login_PO";
+import 'cypress-file-upload';
 
 
     
@@ -43,7 +44,7 @@ Cypress.Commands.add("waitForLoader",()=>{
     cy.get('.loader-site',{timeout:30000}).should('not.exist');
 })
 
-//dynamic file upload
+//File upload
 Cypress.Commands.add("uploadDynamicImage", (numFiles, fileInputSelector, fileUploadSelector) => {
   //File uploading 
   const images = ['1.pdf', '2.pdf', '3.pdf', '4.pdf', '5.pdf', '6.pdf', '7.pdf'];
@@ -57,6 +58,7 @@ Cypress.Commands.add("uploadDynamicImage", (numFiles, fileInputSelector, fileUpl
       cy.fixture(imageName, 'binary')
       .then(Cypress.Blob.binaryStringToBlob)
       .then((blob) => {
+          // const testFile = new File([blob], imageName, { type: 'application/pdf' });
           const testFile = new File([blob], imageName, { type: 'application/pdf' });
           const dataTransfer = new DataTransfer();
           dataTransfer.items.add(testFile);
@@ -71,3 +73,18 @@ Cypress.Commands.add("uploadDynamicImage", (numFiles, fileInputSelector, fileUpl
   cy.get(fileUploadSelector).should('contain', imageName);
   });
 });
+
+Cypress.Commands.add('uploadImageInspections', (fileNames, selector) => {
+    fileNames.forEach((fileName) => {
+      cy.fixture(fileName)
+        .then(Cypress.Blob.base64StringToBlob)
+        .then((fileContent) => {
+          cy.get(selector).attachFile(
+            { fileContent, fileName, mimeType: 'image/png' },
+            { subjectType: 'drag-n-drop', force: true }
+          );
+        });
+    });
+  });
+  
+
