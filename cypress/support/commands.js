@@ -86,5 +86,13 @@ Cypress.Commands.add('uploadImageInspections', (fileNames, selector) => {
         });
     });
   });
+Cypress.Commands.add('drawInCanvas',(element,index, x,y,x1,x2,y1,y2)=>{
+  cy.get(element).eq(index)
+    .trigger('mouseover', x, y, { force: true, log: false })
+    .click(x, y, { force: true })
+    .click(x1, y1, { force: true })
+    .dblclick(x2, y2, { force: true })
+    .wait(1000);
+})
   
 
