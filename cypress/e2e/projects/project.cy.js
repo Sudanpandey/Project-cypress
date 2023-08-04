@@ -56,6 +56,7 @@ describe("Project", () => {
       "contain",
       "The project was successfully added"
     );
+    cy.get(".notification-title").click();
     cy.get("tbody>tr:nth-child(1)").should("contain", pNameWithPrivateInv);
     //Search recently created project
     cy.get("#object-search-id")
@@ -72,107 +73,9 @@ describe("Project", () => {
       "contain",
       "Project succesvol verwijderd"
     );
+    cy.get(".notification-title").click();
     cy.wait(3000);
     cy.get("#object-search-id").clear();
-  });
-
-  it.skip("Verify Project Creation with Empty Fields", () => {
-    cy.login();
-    // Click objecten
-    cy.get(`li:contains('Objecten')`).click();
-    cy.get("a.card-header-tab.tab-project").click();
-    //Click New project button
-    cy.get('div[class="d-none d-sm-block"]')
-      .should("contain", "Nieuw project")
-      .click();
-    // cy.get("div.form-group.form-group-focus input.form-control")
-    //   .eq(0)
-    //   .type("");
-    // cy.get("div.form-group.form-group-focus input.form-control")
-    //   .eq(1)
-    //   .type("");
-    cy.get("#ownerType").select("Geen");
-    cy.get("#ownerType").should("contain", "Geen");
-    cy.get('button[type="submit"].btn.btn-secondary').click();
-    //Assertion for empty validation
-  })
-
-  it("Verify Dropdown Options of Select the owner type", () => {
-    cy.login();
-    // Click objecten
-    cy.get(`li:contains('Objecten')`).click();
-    cy.get("a.card-header-tab.tab-project").click();
-    //Click New project button
-    cy.get('div[class="d-none d-sm-block"]')
-      .should("contain", "Nieuw project")
-      .click();
-    const dropdownOptions = ["Geen", "Particuliere belegger", "Organisatie"];
-    cy.get("#ownerType").select("Geen");
-    cy.get("#ownerType").should("contain", "Geen");
-    cy.get("#ownerType").select("Particuliere belegger");
-    cy.get("#ownerType").should("contain", "Particuliere belegger");
-    cy.get("#ownerType").select("Organisatie");
-    cy.get("#ownerType").should("contain", "Organisatie");
-    cy.get('button[type="button"].btn.btn-primary').click();
-  });
-  it("Verify Project Already Exists also Search and Delete Created Project", () => {
-    cy.login();
-    // Click objecten
-    cy.get(`li:contains('Objecten')`).click();
-    cy.get("a.card-header-tab.tab-project").click();
-    //Click New project button
-    cy.get('div[class="d-none d-sm-block"]')
-      .should("contain", "Nieuw project")
-      .click();
-    cy.get("div.form-group.form-group-focus input.form-control")
-      .eq(0)
-      .type("$%!@~````");
-    cy.get("div.form-group.form-group-focus input.form-control")
-      .eq(1)
-      .type("~_&^$&");
-    cy.get("#ownerType").select("Geen");
-    cy.get("#ownerType").should("contain", "Geen");
-    cy.get('button[type="submit"].btn.btn-secondary').click();
-    cy.get(".notification-content").should(
-      "contain",
-      "The project was successfully added"
-    );
-    cy.get("tbody>tr:nth-child(1)").should("contain", "$%!@~````");
-    //Verify project is already exist
-    cy.wait(5000);
-    cy.get('div[class="d-none d-sm-block"]')
-      .should("contain", "Nieuw project")
-      .click();
-    cy.get("div.form-group.form-group-focus input.form-control")
-      .eq(0)
-      .type("$%!@~````");
-    cy.get("div.form-group.form-group-focus input.form-control")
-      .eq(1)
-      .type("~_&^$&");
-    cy.get('button[type="submit"].btn.btn-secondary').click();
-    cy.get(".swal2-title").should("contain", "Project bestaat al");
-    cy.get(".swal2-close").click();
-    cy.get('button[type="button"].btn.btn-primary').click();
-    //Search recently created project
-    cy.get("#object-search-id").clear().type("$%!@~````").type("{enter}");
-    cy.get("tbody>tr:nth-child(1)").should("contain", "$%!@~````");
-    cy.get("tbody").find("tr").its("length").should("be.eq", 1);
-    //Delete recently created contract-type
-    cy.get(".mdi.mdi-cog").click();
-    cy.contains("Verwijderen").click();
-    cy.get("button.swal2-confirm[type='button']").click();
-    cy.get(".notification-content").should(
-      "contain",
-      "Project succesvol verwijderd"
-    );
-    cy.wait(3000);
-    cy.get("#object-search-id").clear();
-  });
-
-  it("Verify Project Creation with Invalid Data", () => {
-    cy.login();
-    // Click objecten
-    //Pending Due to there is no invalid scenarios occurs.
   });
   it("Verify Project Update:When edit button is clicked, the data should be populated in the form", () => {
     cy.login();
@@ -217,6 +120,8 @@ describe("Project", () => {
       "contain",
       "The project was successfully added"
     );
+    cy.get(".notification-title").click();
+    cy.wait(5000);
     cy.get("tbody>tr:nth-child(1)").should("contain", pNameForEditNext);
     //Search recently created project
     cy.get("#object-search-id").clear().type(pNameForEditNext).type("{enter}");
@@ -230,8 +135,110 @@ describe("Project", () => {
       "contain",
       "Project succesvol verwijderd"
     );
+    cy.get("#object-search-id").clear();
+  });
+  it.skip("Verify Project Creation with Empty Fields", () => {
+    cy.login();
+    // Click objecten
+    cy.get(`li:contains('Objecten')`).click();
+    cy.get("a.card-header-tab.tab-project").click();
+    //Click New project button
+    cy.get('div[class="d-none d-sm-block"]')
+      .should("contain", "Nieuw project")
+      .click();
+    // cy.get("div.form-group.form-group-focus input.form-control")
+    //   .eq(0)
+    //   .type("");
+    // cy.get("div.form-group.form-group-focus input.form-control")
+    //   .eq(1)
+    //   .type("");
+    cy.get("#ownerType").select("Geen");
+    cy.get("#ownerType").should("contain", "Geen");
+    cy.get('button[type="submit"].btn.btn-secondary').click();
+    //Assertion for empty validation
+  });
+
+  it("Verify Dropdown Options of Select the owner type", () => {
+    cy.login();
+    // Click objecten
+    cy.get(`li:contains('Objecten')`).click();
+    cy.get("a.card-header-tab.tab-project").click();
+    //Click New project button
+    cy.get('div[class="d-none d-sm-block"]')
+      .should("contain", "Nieuw project")
+      .click();
+    const dropdownOptions = ["Geen", "Particuliere belegger", "Organisatie"];
+    cy.get("#ownerType").select("Geen");
+    cy.get("#ownerType").should("contain", "Geen");
+    cy.get("#ownerType").select("Particuliere belegger");
+    cy.get("#ownerType").should("contain", "Particuliere belegger");
+    cy.get("#ownerType").select("Organisatie");
+    cy.get("#ownerType").should("contain", "Organisatie");
+    cy.get('button[type="button"].btn.btn-primary').click();
+    cy.wait(3000);
+  });
+  it("Verify Project Already Exists also Search and Delete Created Project", () => {
+    cy.login();
+    // Click objecten
+    cy.get(`li:contains('Objecten')`).click();
+    cy.get("a.card-header-tab.tab-project").click();
+    const pNameForExisting = "Project-Qaasaa" + Date.now();
+    const cNameForExisting = "Located City" + Date.now();
+    //Click New project button
+    cy.get('div[class="d-none d-sm-block"]')
+      .should("contain", "Nieuw project")
+      .click();
+    cy.get("div.form-group.form-group-focus input.form-control")
+      .eq(0)
+      .type(pNameForExisting);
+    cy.get("div.form-group.form-group-focus input.form-control")
+      .eq(1)
+      .type(cNameForExisting);
+    cy.get("#ownerType").select("Geen");
+    cy.get("#ownerType").should("contain", "Geen");
+    cy.get('button[type="submit"].btn.btn-secondary').click();
+    cy.get(".notification-content").should(
+      "contain",
+      "The project was successfully added"
+    );
+    cy.get(".notification-title").click();
+    cy.wait(5000);
+    cy.get("tbody>tr:nth-child(1)").should("contain", pNameForExisting);
+    //Verify project is already exist
+    cy.get('div[class="d-none d-sm-block"]')
+      .should("contain", "Nieuw project")
+      .click();
+    cy.get("div.form-group.form-group-focus input.form-control")
+      .eq(0)
+      .type(pNameForExisting);
+    cy.get("div.form-group.form-group-focus input.form-control")
+      .eq(1)
+      .type(cNameForExisting);
+    cy.get('button[type="submit"].btn.btn-secondary').click();
+    cy.get(".swal2-title").should("contain", "Project bestaat al");
+    cy.get(".swal2-close").click();
+    cy.get('button[type="button"].btn.btn-primary').click();
+    //Search recently created project
+    cy.get("#object-search-id").clear().type(pNameForExisting).type("{enter}");
+    cy.get("tbody>tr:nth-child(1)").should("contain", pNameForExisting);
+    cy.get("tbody").find("tr").its("length").should("be.eq", 1);
+    //Delete recently created contract-type
+    cy.get(".mdi.mdi-cog").click();
+    cy.contains("Verwijderen").click();
+    cy.get("button.swal2-confirm[type='button']").click();
+    // cy.get(".notification-content").should(
+    //   "contain",
+    //   "Project succesvol verwijderd"
+    // );
+    cy.get(".notification-title").click();
     cy.wait(3000);
     cy.get("#object-search-id").clear();
+  });
+
+  it("Verify Project Creation with Invalid Data", () => {
+    cy.login();
+    // Click objecten
+    //Pending Due to there is no invalid scenarios occurs.
   });
 
   it.skip("Verify Project Image Uploading", () => {

@@ -21,4 +21,5 @@ module.exports = defineConfig({
     testIsolation: false,
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
   },
+  experimentalWebKitSupport: true
 });
