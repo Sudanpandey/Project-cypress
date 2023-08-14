@@ -12,7 +12,7 @@ describe("Create category", () => {
   it("Should display error message for empty category name- Create category", () => {
     // cy.login();
     // Navigation
-    cy.get(":nth-child(10) > .nav-item > .icon-sidenav", {
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
       timeout: 20000,
     }).click();
     cy.get("li:nth-of-type(8) div:nth-of-type(2)").click();
@@ -32,7 +32,7 @@ describe("Create category", () => {
   it("Should display success message for valid category name- create category", () => {
     // cy.login();
     // Navigation
-    cy.get(":nth-child(10) > .nav-item > .icon-sidenav").click();
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav").click();
     cy.get("li:nth-of-type(8) div:nth-of-type(2)").click();
     cy.get("div.d-none").click();
     cy.get("input[name='name']").click();
@@ -70,7 +70,7 @@ describe("Create category", () => {
 
   it("Should display error message for empty category name- Edit categories", () => {
     //Navigation
-    cy.get(":nth-child(10) > .nav-item > .icon-sidenav").click();
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav").click();
     cy.get("li:nth-of-type(8) div:nth-of-type(2)").click();
     cy.get("div.d-none").click();
     cy.get("input[name='name']").click();
@@ -102,7 +102,7 @@ describe("Create category", () => {
     // cy.login();
     //Navigation
     cy.wait(5000);
-    cy.get(":nth-child(10) > .nav-item > .icon-sidenav").click();
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav").click();
     cy.get("li:nth-of-type(8) div:nth-of-type(2)").click();
     cy.get("div.d-none").click();
     cy.get("input[name='name']", { timeout: 8000 }).click();
@@ -142,7 +142,7 @@ describe("Create category", () => {
   it("Edit categories-unique validation but it should ignore the existings data to be updated", () => {
     //Navigation
     cy.wait(5000);
-    cy.get(":nth-child(10) > .nav-item > .icon-sidenav").click();
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav").click();
     cy.get("li:nth-of-type(8) div:nth-of-type(2)").click();
     cy.get("div.d-none", { timeout: 8000 }).click();
     cy.get("input[name='name']").click();

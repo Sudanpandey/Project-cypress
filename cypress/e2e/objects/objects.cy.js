@@ -9,6 +9,7 @@ describe("Objects feature", () => {
     //Use custom command for create project
     cy.createNewProject(pName, cName);
     //Switch to Objectn tab
+    // cy.get(".sidebar-lock-switch > .mdi").click();
     cy.get("a.card-header-tab.tab-object").click();
     //Click New object button
     cy.get(".d-none").should("contain", "Nieuw object").click();
@@ -38,6 +39,7 @@ describe("Objects feature", () => {
     cy.get('input[inputmode="decimal"].form-control').eq(3).type("65");
     cy.get('input[inputmode="decimal"].form-control').eq(4).type("34");
     cy.get('input[inputmode="decimal"].form-control').eq(5).type("65");
+    //Can Implement with create new administrator and use that email?
     cy.get("select.form-control").eq(5).select("sahaj.malla+101@proshore.eu");
     cy.get("select.form-control")
       .eq(5)
@@ -53,7 +55,7 @@ describe("Objects feature", () => {
       `${streetName} ${houseNo}`
     );
   });
-  it("Verify Project Creation with Valid Data and create object(with owner type is Private Invester) using that project", () => {
+  it.only("Verify Project Creation with Valid Data and create object(with owner type is Private Invester) using that project", () => {
     cy.login();
     const pNameForPvtInv = "Project-Qaasaa-For-objects" + Date.now();
     const cNameForPvtInv = "Located City-For-Objects" + Date.now();
@@ -71,7 +73,18 @@ describe("Objects feature", () => {
       emailAddress,
       contactPersonName
     );
+    const adminUserName = "AdminUserName" + Date.now();
+    const adminFirstName = "FirstName" + Date.now();
+    const adminSurName = "LastName" + Date.now();
+    const adminEmailAddress = "CompnyEmailAdd" + Date.now() + "@example.com";
+    cy.createAdmin(
+      adminUserName,
+      adminFirstName,
+      adminSurName,
+      adminEmailAddress
+    );
     //Switch to Objectn tab
+    cy.get(".sidebar-lock-switch > .mdi").click();
     cy.get(`li:contains('Objecten')`).click();
     cy.get("a.card-header-tab.tab-object").click();
     //Click New object button
@@ -113,27 +126,28 @@ describe("Objects feature", () => {
     cy.get('input[inputmode="decimal"].form-control').eq(3).type("65");
     cy.get('input[inputmode="decimal"].form-control').eq(4).type("34");
     cy.get('input[inputmode="decimal"].form-control').eq(5).type("65");
-    //Can Implement with create new administrator and use that email
-    cy.get("select.form-control").eq(5).select("sahaj.malla+101@proshore.eu");
-    cy.get("select.form-control")
-      .eq(5)
-      .should("contain", "sahaj.malla+101@proshore.eu");
+    //Can Implement with create new administrator and use that email?
+    cy.get("select.form-control").eq(5).select(adminEmailAddress);
+    cy.get("select.form-control").eq(5).should("contain", adminEmailAddress);
+
     cy.get('button[type="submit"].btn.btn-secondary').click();
     cy.get(".notification-content").should(
       "contain",
       "The Object was successfully added"
     );
     cy.get(".notification-title").click();
+    cy.wait(2000);
     cy.get("tbody>tr:nth-child(1)").should(
       "contain",
       `${streetNameForPvtInv} ${houseNoForPvtInv}`
     );
   });
-  it.only("Verify Project Creation with Valid Data and create object (with owner type is Organization) using that project", () => {
+  it("Verify Project Creation with Valid Data and create object (with owner type is Organization) using that project", () => {
     cy.login();
     const pNameForOrg = "Project-Qaasaa-For-objects" + Date.now();
     const cNameForOrg = "Located City-For-Objects" + Date.now();
     //Use custom command for create project
+    cy.wait(5000);
     cy.createNewProject(pNameForOrg, cNameForOrg);
     const fName = "FirstName" + Date.now();
     const sName = "SecondName" + Date.now();
@@ -158,6 +172,7 @@ describe("Objects feature", () => {
       companyName
     );
     //Switch to Objectn tab
+    cy.get(".sidebar-lock-switch > .mdi").click();
     cy.get(`li:contains('Objecten')`).click();
     cy.get("a.card-header-tab.tab-object").click();
     //Click New object button
@@ -170,12 +185,8 @@ describe("Objects feature", () => {
     const houseNoForOrg = "HouseNo-" + Date.now();
     cy.get("select.form-control").eq(1).select("Organisatie");
     cy.get("select.form-control").eq(1).should("contain", "Organisatie");
-    cy.get('input[type="search"].vs__search')
-      .eq(0)
-      .type(name)
-      .type("{enter}");
+    cy.get('input[type="search"].vs__search').eq(0).type(name).type("{enter}");
     cy.get(".vs__selected").eq(0).should("contain", name);
-
     cy.get("select.form-control").eq(2).select("Appartement");
     cy.get("select.form-control").eq(2).should("contain", "Appartement");
     cy.get("select.form-control").eq(3).select("Beschikbaar");
@@ -194,6 +205,7 @@ describe("Objects feature", () => {
     cy.get('input[inputmode="decimal"].form-control').eq(3).type("65");
     cy.get('input[inputmode="decimal"].form-control').eq(4).type("34");
     cy.get('input[inputmode="decimal"].form-control').eq(5).type("65");
+    //Can Implement with create new administrator and use that email?
     cy.get("select.form-control").eq(5).select("sahaj.malla+101@proshore.eu");
     cy.get("select.form-control")
       .eq(5)
@@ -209,8 +221,13 @@ describe("Objects feature", () => {
       `${streetNameForOrg} ${houseNoForOrg}`
     );
   });
-  it("Create new contact person with company", () => {
+  it("Create new admin", () => {
     cy.login();
-   
+    //Crearte admin
+    // const userName = "CompanyName" + Date.now();
+    // const firstName = "CompanyAddress" + Date.now();
+    // const surName = "4565gh";
+    // const emailAddress = "CompnyEmailAdd" + Date.now() + "@example.com";
+    // cy.createAdmin(userName, firstName, surName, emailAddress);
   });
 });

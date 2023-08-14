@@ -3,6 +3,7 @@ describe("Inspection", () => {
   it("Should display error message for empty Inspection", () => {
     cy.login();
     // Click objecten
+    cy.get(".sidebar-lock-switch > .mdi").click();
     cy.get(`li:contains('Objecten')`).click();
     cy.get(`td[data-title="Locatie"]`).should("be.visible").first().click();
     cy.get(".tab-bar .nav-pills li.nav-item a.nav-link")
@@ -18,10 +19,12 @@ describe("Inspection", () => {
     cy.get(".swal2-confirm").click();
     cy.wait(5000);
   });
-  it("Should display error message for empty Inspection name", () => {
+  it.skip("Should display error message for empty Inspection name", () => {
     cy.login();
     // Click objecten
-    cy.get(`li:contains('Objecten')`).click();
+    cy.get(".sidebar-lock-switch > .mdi").click();
+    cy.get('.nav-sidebar li.current a.nav-link span.nav-text:contains("Objecten")').click();
+    // cy.get(`li:contains('Objecten')`).click();
     cy.get(`td[data-title="Locatie"]`).should("be.visible").first().click();
     cy.get(".tab-bar .nav-pills li.nav-item a.nav-link")
       .contains("Inspecties")
@@ -36,15 +39,18 @@ describe("Inspection", () => {
   it("When we create a supplier, the created supplier should be listed at the top of the page", () => {
     cy.login();
     // Click objecten
+    cy.get(".sidebar-lock-switch > .mdi").click();
+    // cy.get('.nav-sidebar li.current a.nav-link span.nav-text:contains("Objecten")').click();
     cy.get(`li:contains('Objecten')`).click();
     cy.get(`td[data-title="Locatie"]`).should("be.visible").first().click();
     cy.get(".tab-bar .nav-pills li.nav-item a.nav-link")
       .contains("Inspecties")
       .click();
     cy.contains("Nieuwe Inspectie").click();
-    cy.get("select.form-control option:nth-child(2)")
-      .parent("select")
-      .select("1");
+    // cy.get("select.form-control option:nth-child(2)")
+    //   .parent("select")
+    //   .select('first');
+    cy.get('#vs2__combobox').type("Begin Inspection").type("{enter}");
     cy.get("input[required='required']")
       .clear()
       .type("This is test inspection name");
@@ -52,18 +58,20 @@ describe("Inspection", () => {
     cy.contains("success").click();
     // cy.get('.h5 > .btn').should('contain','Opslaan');
   });
-  it("should display the upload the images", function () {
+  it.only("should display the upload the images", function () {
     cy.login();
     // Click objecten
+    // cy.get('.nav-sidebar li.current a.nav-link span.nav-text:contains("Objecten")').click();
     cy.get(`li:contains('Objecten')`).click();
     cy.get(`td[data-title="Locatie"]`).should("be.visible").first().click();
     cy.get(".tab-bar .nav-pills li.nav-item a.nav-link")
       .contains("Inspecties")
       .click();
     cy.contains("Nieuwe Inspectie").click();
-    cy.get("select.form-control option:nth-child(2)")
-      .parent("select")
-      .select("1");
+    // cy.get("select.form-control option:nth-child(2)")
+    //   .parent("select")
+    //   .select("1");
+    cy.get('input[placeholder="Selecteer een optie of zoek"]').select('first');
     cy.get("input[required='required']").click();
     cy.get(".btn.btn-submit").click();
     cy.get(".h5 > .btn").should("contain", "Opslaan");

@@ -11,7 +11,6 @@ import { config } from "../../config/index";
 import Login_PO from "../support/pageObjects/Login_PO";
 import "cypress-file-upload";
 
-
 //Login
 const login_PO = new Login_PO();
 
@@ -176,8 +175,34 @@ Cypress.Commands.add(
     cy.get("tbody>tr:nth-child(1)").should("contain", name);
   }
 );
+//Create new admin
+Cypress.Commands.add(
+  "createAdmin",
+  (userName, firstName, surName, emailAddress) => {
+    cy.get(".sidebar-lock-switch > .mdi").click();
+    cy.get(`li:contains('Contacten')`).click();
+    cy.get("a.nav-item.nav-link span.nav-text").contains("Beheerders").click();
+    cy.get('div[class="d-none d-sm-block"]')
+      .should("contain", "Nieuwe admin")
+      .click();
+    cy.get('input[required="required"].form-control').eq(0).type(userName);
+    cy.get('input[required="required"].form-control').eq(1).type(firstName);
+    cy.get('input[required="required"].form-control').eq(2).type(surName);
+    cy.get('input[required="required"].form-control').eq(3).type(emailAddress);
+    cy.get("select.form-control").eq(0).select("Man");
+    cy.get('button[type="submit"].btn.btn-secondary').click();
+    // cy.get('.alert').should('contain','username is al bezet.');
+    cy.get(".notification-title").click();
+    cy.get("tbody>tr:nth-child(1)").should(
+      "contain",
+      `${firstName} ${surName}`
+    );
+  }
+);
+
 //Create New project
 Cypress.Commands.add("createNewProject", (pName, cName) => {
+  cy.get(".sidebar-lock-switch > .mdi").click();
   cy.get(`li:contains('Objecten')`).click();
   cy.get("a.card-header-tab.tab-project").click();
   cy.get('div[class="d-none d-sm-block"]')

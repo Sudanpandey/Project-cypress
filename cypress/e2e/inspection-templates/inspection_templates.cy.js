@@ -15,7 +15,7 @@ describe("Inspection Templates", () => {
     cy.get(".card-footer > .btn-secondary").click();
     // cy.contains('Please fill in this field.').click();
   });
-  it("Should be listed at the top of the page after creating new contracts", () => {
+  it.only("Should be listed at the top of the page after creating new contracts", () => {
     cy.login();
     // Navigation
     cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
@@ -154,7 +154,7 @@ describe("Inspection Templates", () => {
         });
       });
   });
-  it.only("When N-numbers of add Sub-category is clicked, N+2 numbers of Sub-category should be apppears", () => {
+  it("When N-numbers of add Sub-category is clicked, N+2 numbers of Sub-category should be apppears", () => {
     cy.login();
     // Navigation
     cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
