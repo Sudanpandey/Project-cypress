@@ -23,7 +23,9 @@ describe("Inspection", () => {
     cy.login();
     // Click objecten
     cy.get(".sidebar-lock-switch > .mdi").click();
-    cy.get('.nav-sidebar li.current a.nav-link span.nav-text:contains("Objecten")').click();
+    cy.get(
+      '.nav-sidebar li.current a.nav-link span.nav-text:contains("Objecten")'
+    ).click();
     // cy.get(`li:contains('Objecten')`).click();
     cy.get(`td[data-title="Locatie"]`).should("be.visible").first().click();
     cy.get(".tab-bar .nav-pills li.nav-item a.nav-link")
@@ -50,7 +52,7 @@ describe("Inspection", () => {
     // cy.get("select.form-control option:nth-child(2)")
     //   .parent("select")
     //   .select('first');
-    cy.get('#vs2__combobox').type("Begin Inspection").type("{enter}");
+    cy.get("#vs2__combobox").type("Begin Inspection").type("{enter}");
     cy.get("input[required='required']")
       .clear()
       .type("This is test inspection name");
@@ -71,7 +73,7 @@ describe("Inspection", () => {
     // cy.get("select.form-control option:nth-child(2)")
     //   .parent("select")
     //   .select("1");
-    cy.get('input[placeholder="Selecteer een optie of zoek"]').select('first');
+    cy.get('input[placeholder="Selecteer een optie of zoek"]').select("first");
     cy.get("input[required='required']").click();
     cy.get(".btn.btn-submit").click();
     cy.get(".h5 > .btn").should("contain", "Opslaan");
