@@ -112,7 +112,7 @@ describe("Test suites: Unit", () => {
     //Inspection flow--
     cy.get("tbody>tr:nth-child(1)").should("contain", unitNumber);
     cy.get("td.align-middle").eq(1).click();
-    cy.get(".nav > :nth-child(4) > .nav-link").contains("Inspecties").click();
+    cy.get(".nav > :nth-child(5) > .nav-link").contains("Inspecties").click();
     cy.get(".btn-outline-primary").contains("Nieuwe Inspectie").click();
     // cy.wait(20000);
     cy.get(".vs__selected")

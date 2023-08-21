@@ -229,5 +229,8 @@ describe("Objects feature", () => {
     // const surName = "4565gh";
     // const emailAddress = "CompnyEmailAdd" + Date.now() + "@example.com";
     // cy.createAdmin(userName, firstName, surName, emailAddress);
+    cy.get("button['.btn btn-block btn-light']").click();
+    cy.get(".mdi mdi-thumb-down").click();
+    c
   });
 });

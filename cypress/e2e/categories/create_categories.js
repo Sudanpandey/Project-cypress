@@ -86,11 +86,10 @@ describe("Create category", () => {
     cy.get(
       "div[class='dropdown-menu dropdown-menu-right show'] button:nth-child(2)"
     ).click();
-    cy.get("input[name='name']").clear();
-    cy.get("div.side-panel-footer button.btn-primary", {
-      timeout: 2000,
-    }).click();
-    cy.get(".text-danger.order-5").should(
+    cy.wait(2000);
+    cy.get("input[name='name'].form-control").clear();
+    cy.get("div.side-panel-footer button.btn-primary").click();
+    cy.get('.order-5').should(
       "contain",
       "Het name veld is verplicht."
     );

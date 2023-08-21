@@ -8,7 +8,7 @@ describe("Create Contract-type", () => {
     cy.login();
     // Navigation
     // cy.get('.nav-sidebar ul li').last({timeout: 20000}).click();
-    cy.get(":nth-child(12) > .nav-item > .icon-sidenav", {
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
       timeout: 20000,
     }).click();
     cy.get(".nav > :nth-child(3) > .nav-link").click();
@@ -27,7 +27,7 @@ describe("Create Contract-type", () => {
     cy.login();
     // Navigation
     // cy.get('.nav-sidebar ul li').last({timeout: 20000}).click();
-    cy.get(":nth-child(12) > .nav-item > .icon-sidenav", {
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
       timeout: 20000,
     }).click();
     cy.get(".nav > :nth-child(3) > .nav-link").click();
@@ -41,7 +41,7 @@ describe("Create Contract-type", () => {
     cy.login();
     // Navigation
     // cy.get('.nav-sidebar ul li').last({timeout: 20000}).click();
-    cy.get(":nth-child(12) > .nav-item > .icon-sidenav", {
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
       timeout: 20000,
     }).click();
     cy.get(".nav > :nth-child(3) > .nav-link").click();
@@ -74,7 +74,7 @@ describe("Create Contract-type", () => {
   it("Should open a edit modal when edit button is click", () => {
     cy.login();
     // Navigation
-    cy.get(":nth-child(12) > .nav-item > .icon-sidenav", {
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
       timeout: 20000,
     }).click();
     // cy.get('.nav-sidebar ul li').last({timeout: 20000}).click();
@@ -131,7 +131,7 @@ describe("Create Contract-type", () => {
     cy.login();
     // Navigation
     // cy.get('.nav-sidebar ul li').last({timeout: 20000}).click();
-    cy.get(":nth-child(12) > .nav-item > .icon-sidenav", {
+    cy.get(":nth-child(11) > .nav-item > .icon-sidenav", {
       timeout: 20000,
     }).click();
     cy.get(".nav > :nth-child(3) > .nav-link").click();

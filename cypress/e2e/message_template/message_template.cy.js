@@ -456,7 +456,6 @@ describe("Create category", () => {
       "contain",
       3
     );
-
     //Delete recently created message template
     cy.wait(2000);
     cy.get("input[placeholder='Search']")
